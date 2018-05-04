@@ -3,7 +3,6 @@ package br.servicos;
 import br.problema2.ClientePessoaJuridica;
 import br.problema2.ContaCorrente;
 import br.problema2.Operacao;
-import br.util.TipoNotificacao;
 
 /**
  *
