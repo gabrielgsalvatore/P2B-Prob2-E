@@ -36,6 +36,8 @@ public class Apresentacao extends javax.swing.JFrame {
         lbl_destinatario.setVisible(false);
         cb_tipoNotificacao.addItem("Whatts App");
         cb_tipoNotificacao.addItem("SMS");
+        this.setLocationRelativeTo(null);
+        this.setTitle("Banco FastMoney");
     }
 
     /**
