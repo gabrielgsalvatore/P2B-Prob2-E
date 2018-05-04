@@ -450,8 +450,6 @@ public class Apresentacao extends javax.swing.JFrame {
 
     private void tf_codigoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_codigoFocusGained
         
-        
-        
     }//GEN-LAST:event_tf_codigoFocusGained
 
     private void cb_clienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cb_clienteFocusGained

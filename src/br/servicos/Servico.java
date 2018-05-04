@@ -10,7 +10,6 @@ import br.problema2.Operacao;
 public abstract class Servico {
 
     protected ContaCorrente conta;
-    protected Operacao operacao;
     
     public Servico(ContaCorrente conta) {
         this.conta = conta;
