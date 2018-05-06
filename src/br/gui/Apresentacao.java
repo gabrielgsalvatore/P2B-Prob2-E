@@ -1,43 +1,48 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.gui;
 
 import br.problema2.Cliente;
 import br.problema2.ClientePessoaFisica;
 import br.problema2.ClientePessoaJuridica;
 import br.problema2.ContaCorrente;
+import br.servicos.AnaliseDeInvestimento;
 import br.servicos.AnaliseFluxoDeCaixa;
 import br.servicos.BaixaDeInvestimento;
 import br.servicos.Notificacao;
+import br.servicos.OfertaDeFinanciamento;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
 /**
- *
- * @author vinic
+ * @author Vinícius Luis da Silva
+ *         Pedro Henrique de Novais
+ *         Sidnei Lanser
+ *         Gabriel Salvador
  */
 public class Apresentacao extends javax.swing.JFrame {
 
     private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+    private MaskFormatter maskCPF;
+    private MaskFormatter maskCNPJ;
     
     /**
      * Creates new form Apresentacao
      */
     public Apresentacao() {
         initComponents();
-        //cb_destinatario.hide();
-        //lbl_destinatario.hide();
+        this.setResizable(false);
         cb_destinatario.setVisible(false);
         lbl_destinatario.setVisible(false);
+        tf_servidorJMS.setVisible(false);
+        lbl_servidorJMS.setVisible(false);
         cb_tipoNotificacao.addItem("Whatts App");
         cb_tipoNotificacao.addItem("SMS");
         this.setLocationRelativeTo(null);
         this.setTitle("Banco FastMoney");
+        try {
+            maskCPF = new MaskFormatter("###.###.###-##");
+            maskCNPJ = new MaskFormatter("####.####.##/####");
+        } catch(Exception e) {}
     }
 
     /**
@@ -57,7 +62,7 @@ public class Apresentacao extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cb_codigo = new javax.swing.JComboBox<>();
         tf_servidorJMS = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        lbl_servidorJMS = new javax.swing.JLabel();
         btn_cadastrarCliente = new javax.swing.JButton();
         tf_telFixo = new javax.swing.JFormattedTextField();
         tf_telCelular = new javax.swing.JFormattedTextField();
@@ -74,6 +79,8 @@ public class Apresentacao extends javax.swing.JFrame {
         ra_fluxo = new javax.swing.JRadioButton();
         ra_baixa = new javax.swing.JRadioButton();
         cb_tipoNotificacao = new javax.swing.JComboBox<>();
+        ra_oferta = new javax.swing.JRadioButton();
+        ra_investimento = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
         cb_operacao = new javax.swing.JComboBox<>();
         tf_quantidade = new javax.swing.JTextField();
@@ -100,9 +107,7 @@ public class Apresentacao extends javax.swing.JFrame {
             }
         });
 
-        tf_servidorJMS.setEditable(false);
-
-        jLabel4.setText("Servidor JMS");
+        lbl_servidorJMS.setText("Servidor JMS");
 
         btn_cadastrarCliente.setText("Cadastrar");
         btn_cadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -143,7 +148,7 @@ public class Apresentacao extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl_servidorJMS, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cb_codigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)))
@@ -161,7 +166,7 @@ public class Apresentacao extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(190, 190, 190)
                 .addComponent(btn_cadastrarCliente)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,11 +189,11 @@ public class Apresentacao extends javax.swing.JFrame {
                     .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(lbl_servidorJMS)
                     .addComponent(tf_servidorJMS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_cadastrarCliente)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Cadastrar Cliente", jPanel1);
@@ -215,6 +220,7 @@ public class Apresentacao extends javax.swing.JFrame {
         lbl1.setText("Agencia");
 
         jButton1.setText("Cadastrar Conta");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -227,6 +233,10 @@ public class Apresentacao extends javax.swing.JFrame {
 
         ra_baixa.setText("Baixa Automática de Investimento");
 
+        ra_oferta.setText("Oferta de Financiamento");
+
+        ra_investimento.setText("Análise de Investimento");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -236,32 +246,37 @@ public class Apresentacao extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(32, 32, 32)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cb_cliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tf_numero)
-                            .addComponent(tf_agencia, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ra_fluxo)
                             .addComponent(ra_baixa))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cb_cliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tf_numero)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lbl1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_agencia))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(ra_notificacoes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cb_tipoNotificacao, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cb_tipoNotificacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addComponent(jButton1)
-                .addContainerGap(212, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(173, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ra_oferta)
+                            .addComponent(ra_investimento))))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,16 +298,16 @@ public class Apresentacao extends javax.swing.JFrame {
                     .addComponent(ra_notificacoes)
                     .addComponent(cb_tipoNotificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(ra_fluxo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ra_baixa)
-                        .addGap(0, 68, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(17, 17, 17))))
+                .addComponent(ra_fluxo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ra_baixa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ra_oferta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ra_investimento)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Cadastrar Conta", jPanel2);
@@ -324,34 +339,27 @@ public class Apresentacao extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7)
                             .addComponent(lbl_destinatario)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel7)))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(tf_quantidade)
-                                .addGap(2, 2, 2))
-                            .addComponent(cb_destinatario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(tf_quantidade)
+                            .addComponent(cb_destinatario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cb_operacao, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cb_clienteServico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cb_clienteServico, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cb_operacao, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(167, 167, 167)))))
+                        .addContainerGap(159, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(167, 167, 167)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -375,7 +383,7 @@ public class Apresentacao extends javax.swing.JFrame {
                     .addComponent(cb_destinatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Serviços", jPanel3);
@@ -388,7 +396,7 @@ public class Apresentacao extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -396,20 +404,24 @@ public class Apresentacao extends javax.swing.JFrame {
 
     private void btn_cadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarClienteActionPerformed
         
-        Cliente c;
+        try {
+            Cliente c;
         
-        switch ((String) cb_codigo.getSelectedItem()) {
-            case "CPF":
-                c = new ClientePessoaFisica(tf_nome.getText(), tf_telCelular.getText(), tf_telFixo.getText(), tf_codigo.getText());
-                break;
-            case "CNPJ":
-                c = new ClientePessoaJuridica(tf_nome.getText(), tf_telCelular.getText(), tf_telFixo.getText(), tf_codigo.getText(), tf_servidorJMS.getText());
-                break;
-            default:
-                throw new IllegalArgumentException();
+            switch ((String) cb_codigo.getSelectedItem()) {
+                case "CPF":
+                    c = new ClientePessoaFisica(tf_nome.getText(), tf_telCelular.getText(), tf_telFixo.getText(), tf_codigo.getText());
+                    break;
+                case "CNPJ":
+                    c = new ClientePessoaJuridica(tf_nome.getText(), tf_telCelular.getText(), tf_telFixo.getText(), tf_codigo.getText(), tf_servidorJMS.getText());
+                    break;
+                default:
+                    throw new IllegalArgumentException();
+            }
+
+            this.clientes.add(c);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        
-        this.clientes.add(c);
         
         this.tf_telCelular.setText("");
         this.tf_telFixo.setText("");
@@ -419,64 +431,20 @@ public class Apresentacao extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_cadastrarClienteActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        try {
-            if(cb_cliente.getSelectedItem() == null) {
-                throw new IllegalArgumentException("Nenhum Cliente Selecionado!");
-            }
-            ContaCorrente cc = new ContaCorrente((Integer) tf_numero.getValue(), (Integer) tf_agencia.getValue());
-            if(ra_baixa.isSelected()) {
-                cc.addServico(new BaixaDeInvestimento(cc));
-            }
-            if(ra_fluxo.isSelected()) {
-                cc.addServico(new AnaliseFluxoDeCaixa(cc));
-            }
-            if(ra_notificacoes.isSelected()) {
-                cc.addServico(new Notificacao(cc, (String) cb_tipoNotificacao.getSelectedItem()));
-            }
-            Cliente aux  = (Cliente) cb_cliente.getSelectedItem();
-            aux.addConta(cc);
-            cb_clienteServico.addItem(cc);
-            cb_destinatario.addItem(cc);
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        
-        this.tf_agencia.setValue(0);
-        this.tf_numero.setValue(0);
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void tf_codigoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_codigoFocusGained
-        
-    }//GEN-LAST:event_tf_codigoFocusGained
-
-    private void cb_clienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cb_clienteFocusGained
-        
-        cb_cliente.removeAllItems();
-        for(Cliente c: this.clientes) {
-            cb_cliente.addItem(c);
-        }
-        
-    }//GEN-LAST:event_cb_clienteFocusGained
-
-    private void tf_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_codigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tf_codigoActionPerformed
-
-    private void cb_codigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cb_codigoFocusLost
         try {
             switch ((String) cb_codigo.getSelectedItem()) {
                 case "CPF":
-                    this.tf_codigo.setFormatterFactory(new DefaultFormatterFactory(
-                                                   new MaskFormatter("###.###.###-##")));
-                    tf_servidorJMS.setEditable(false);
+                    maskCNPJ.uninstall();
+                    maskCPF.install(tf_codigo);
+                    tf_servidorJMS.setVisible(false);
+                    lbl_servidorJMS.setVisible(false);
                     break;
                 case "CNPJ":
-                    this.tf_codigo.setFormatterFactory(new DefaultFormatterFactory(
-                                                   new MaskFormatter("##.###.###/####-##")));
-                    tf_servidorJMS.setEditable(true);
+                    maskCPF.uninstall();
+                    maskCNPJ.install(tf_codigo);
+                    tf_servidorJMS.setVisible(true);
+                    lbl_servidorJMS.setVisible(true);
                     break;
                 default:
                     throw new IllegalArgumentException();
@@ -484,17 +452,21 @@ public class Apresentacao extends javax.swing.JFrame {
         } catch(Exception e) {
             
         }
+    }//GEN-LAST:event_tf_codigoFocusGained
+
+    private void tf_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_codigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_codigoActionPerformed
+
+    private void cb_codigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cb_codigoFocusLost
+        
     }//GEN-LAST:event_cb_codigoFocusLost
 
     private void cb_operacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cb_operacaoFocusLost
         if(cb_operacao.getSelectedItem().equals("Transferencia")) {
-            //cb_destinatario.show();
-            //lbl_destinatario.show();
             cb_destinatario.setVisible(true);
             lbl_destinatario.setVisible(true);
         } else {
-            //cb_destinatario.hide();
-            //lbl_destinatario.hide();
             cb_destinatario.setVisible(false);
             lbl_destinatario.setVisible(false);
         }
@@ -502,31 +474,91 @@ public class Apresentacao extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        ContaCorrente aux;
-        if(cb_clienteServico != null) {
-            switch ((String) cb_operacao.getSelectedItem()) {
-                case "Saque":
-                    aux = (ContaCorrente) cb_clienteServico.getSelectedItem();
-                    aux.sacar(Double.parseDouble(this.tf_quantidade.getText()));
-                    break;
-                case "Depósito":
-                    aux = (ContaCorrente) cb_clienteServico.getSelectedItem();
-                    aux.depositar(Double.parseDouble(this.tf_quantidade.getText()));
-                    break;
-                case "Transferencia":
-                    aux = (ContaCorrente) cb_clienteServico.getSelectedItem();
-                    aux.transferir(Double.parseDouble(this.tf_quantidade.getText()), (ContaCorrente) cb_destinatario.getSelectedItem());
-                    break;
-                default:
-                    throw new IllegalArgumentException();
+        try {
+            ContaCorrente aux;
+            if(cb_clienteServico != null) {
+                switch ((String) cb_operacao.getSelectedItem()) {
+                    case "Saque":
+                        aux = (ContaCorrente) cb_clienteServico.getSelectedItem();
+                        aux.sacar(Double.parseDouble(this.tf_quantidade.getText()));
+                        break;
+                    case "Depósito":
+                        aux = (ContaCorrente) cb_clienteServico.getSelectedItem();
+                        aux.depositar(Double.parseDouble(this.tf_quantidade.getText()));
+                        break;
+                    case "Transferencia":
+                        aux = (ContaCorrente) cb_clienteServico.getSelectedItem();
+                        aux.transferir(Double.parseDouble(this.tf_quantidade.getText()), (ContaCorrente) cb_destinatario.getSelectedItem());
+                        break;
+                    default:
+                        throw new IllegalArgumentException();
+                }
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
+        tf_quantidade.setText("");
+        cb_clienteServico.setSelectedIndex(0);
+        cb_destinatario.setSelectedIndex(0);
+        cb_operacao.setSelectedIndex(0);
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        try {
+            if(cb_cliente.getSelectedItem() == null) {
+                throw new IllegalArgumentException("Nenhum Cliente Selecionado!");
+            }
+            ContaCorrente cc = new ContaCorrente((Integer) tf_numero.getValue(), (Integer) tf_agencia.getValue());
+            Cliente aux  = (Cliente) cb_cliente.getSelectedItem();
+            cc.setCliente(aux);
+            if(ra_baixa.isSelected()) {
+                cc.addServico(new BaixaDeInvestimento());
+            }
+            if(ra_fluxo.isSelected()) {
+                cc.addServico(new AnaliseFluxoDeCaixa());
+            }
+            if(ra_notificacoes.isSelected()) {
+                String tipoContato = (String) cb_tipoNotificacao.getSelectedItem();
+                String contato;
+                if(tipoContato.equals("Servidor JMS")) {
+                    ClientePessoaJuridica c = (ClientePessoaJuridica) cc.getCliente();
+                    contato = c.getServidorJMS();
+                } else {
+                    contato = cc.getCliente().getTelCelular();
+                }
+                cc.addServico(new Notificacao(tipoContato, contato));
+            }
+            if(ra_investimento.isSelected()) {
+                cc.addServico(new AnaliseDeInvestimento());
+            }
+            if(ra_oferta.isSelected()) {
+                cc.addServico(new OfertaDeFinanciamento());
+            }
+            aux.addConta(cc);
+            cb_clienteServico.addItem(cc);
+            cb_destinatario.addItem(cc);
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        this.tf_agencia.setValue(0);
+        this.tf_numero.setValue(0);
+        this.ra_baixa.setSelected(false);
+        this.ra_fluxo.setSelected(false);
+        this.ra_investimento.setSelected(false);
+        this.ra_notificacoes.setSelected(false);
+        this.ra_oferta.setSelected(false);
+        this.cb_cliente.setSelectedIndex(0);
+        this.cb_tipoNotificacao.setSelectedIndex(0);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cb_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cb_clienteFocusLost
         Cliente aux = (Cliente) cb_cliente.getSelectedItem();
@@ -536,6 +568,15 @@ public class Apresentacao extends javax.swing.JFrame {
             cb_tipoNotificacao.removeItem("Servidor JMS");
         }
     }//GEN-LAST:event_cb_clienteFocusLost
+
+    private void cb_clienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cb_clienteFocusGained
+
+        cb_cliente.removeAllItems();
+        for(Cliente c: this.clientes) {
+            cb_cliente.addItem(c);
+        }
+
+    }//GEN-LAST:event_cb_clienteFocusGained
 
     /**
      * @param args the command line arguments
@@ -585,7 +626,6 @@ public class Apresentacao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -597,9 +637,12 @@ public class Apresentacao extends javax.swing.JFrame {
     private javax.swing.JLabel lbl;
     private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl_destinatario;
+    private javax.swing.JLabel lbl_servidorJMS;
     private javax.swing.JRadioButton ra_baixa;
     private javax.swing.JRadioButton ra_fluxo;
+    private javax.swing.JRadioButton ra_investimento;
     private javax.swing.JRadioButton ra_notificacoes;
+    private javax.swing.JRadioButton ra_oferta;
     private javax.swing.JSpinner tf_agencia;
     private javax.swing.JFormattedTextField tf_codigo;
     private javax.swing.JTextField tf_nome;

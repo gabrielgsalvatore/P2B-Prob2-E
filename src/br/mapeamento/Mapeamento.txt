@@ -1,0 +1,10 @@
+Subject	= ContaConrrente.java
+
+Observer = Servico.java
+
+ConcreteObserver = 
+    AnaliseDeInvestimento.java
+    AnaliseDeFluxoDeCaixa.java
+    BaixaDeInvestimento.java
+    Notificacao.java
+    OfertaDeInvestimento.java

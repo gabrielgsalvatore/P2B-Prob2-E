@@ -1,6 +1,7 @@
 package br.problema2;
 
 
+import br.observer.Observable;
 import br.servicos.Servico;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,26 +15,33 @@ import java.util.List;
  *
  * @author marcel
  */
-public class ContaCorrente {
+public class ContaCorrente implements Observable {
     private int numero;
     private int agencia;
     private Cliente cliente;
     private double saldo = 0;
     private List<Operacao> operacoes = new ArrayList();
-    private ArrayList<Servico> servicos = new ArrayList<Servico>();
+    private List<Servico> servicos = new ArrayList<Servico>();
 
     public ContaCorrente(int numero, int agencia) {
         this.setNumero(numero);
         this.setAgencia(agencia);
     }
 
+    @Override
     public void addServico(Servico novo) {
         this.servicos.add(novo);
     }
     
-    private void executarServicos(Operacao oper) {
-        for(Servico s: this.servicos) {
-            s.executar(oper);
+    @Override
+    public void removeServico(Servico servico) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void executarServicos(Operacao operacao) {
+        for(Servico servico: this.servicos) {
+            servico.executar(operacao);
         }
     }
     
@@ -55,7 +63,6 @@ public class ContaCorrente {
         Operacao oper = new Operacao(valor,this.getSaldo(),TipoOperacao.ENTRADA,new Date(),this);
         operacoes.add(oper);
         this.saldo += valor;
-        System.out.println(this.servicos.size());
         this.executarServicos(oper);
     }    
     
@@ -96,7 +103,7 @@ public class ContaCorrente {
         return cliente;
     }
 
-    protected void setCliente(Cliente cliente){
+    public void setCliente(Cliente cliente){
         this.cliente = cliente;
     }
     
@@ -108,4 +115,5 @@ public class ContaCorrente {
     public String toString(){
         return this.getChave();
     }
+    
 }

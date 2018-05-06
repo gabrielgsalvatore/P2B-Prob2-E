@@ -1,30 +1,31 @@
 package br.servicos;
 
-import br.problema2.ClientePessoaJuridica;
-import br.problema2.ContaCorrente;
 import br.problema2.Operacao;
 
 /**
- *
- * @author 104884
+ * @author Vinícius Luis da Silva
+ *         Pedro Henrique de Novais
+ *         Sidnei Lanser
+ *         Gabriel Salvador
  */
 public class Notificacao extends Servico {
 
-    private String tipo;
+    private String tipoContato;
+    private String contato;
     
-    public Notificacao(ContaCorrente conta, String tipo) {
-        super(conta);
-        this.tipo = tipo;
+    public Notificacao(String tipoContato, String contato) {
+        this.tipoContato = tipoContato;
+        this.contato = contato;
     }
     
     @Override
     public void executar(Operacao operacao) {
-        
-        System.out.println(operacao.toString());
-        if(this.tipo.equals("Servidor JMS")) {
-            ClientePessoaJuridica aux = (ClientePessoaJuridica) super.conta.getCliente();
-            System.out.println(aux.getServidorJMS());
-        }
+        System.out.println("Cliente: " + operacao.getConta().getCliente().toString() 
+                            + " " + operacao.toString()
+                            + " - Serviço de Notificação via "
+                            + this.tipoContato
+                            + " para "
+                            + this.contato);
     }
     
 }

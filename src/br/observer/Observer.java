@@ -1,6 +1,5 @@
-package br.servicos;
+package br.observer;
 
-import br.observer.Observer;
 import br.problema2.Operacao;
 
 /**
@@ -9,8 +8,8 @@ import br.problema2.Operacao;
  *         Sidnei Lanser
  *         Gabriel Salvador
  */
-public abstract class Servico implements Observer {
+public interface Observer {
 
-    public abstract void executar(Operacao operacao);
+    public void executar(Operacao operacao);
     
 }
