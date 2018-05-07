@@ -119,6 +119,10 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="tf_nome">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField()"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tf_nome.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;        public void keyTyped(java.awt.event.KeyEvent evt) {&#xa;         if(!(Character.isLetter(evt.getKeyChar())) &amp;&amp; !(Character.isSpaceChar(evt.getKeyChar()))){&#xa;                evt.consume();&#xa;            }&#xa;        }&#xa;    });"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
@@ -172,6 +176,9 @@
                   <Format format="(##) #### ####" subtype="-1" type="5"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_telFixoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="tf_telCelular">
               <Properties>
@@ -179,6 +186,9 @@
                   <Format format="(##) ##### ####" subtype="-1" type="5"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_telCelularActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="tf_codigo">
               <Events>
@@ -206,52 +216,42 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="ra_fluxo" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ra_baixa" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="164" max="32767" attributes="0"/>
+                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="167" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lbl" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <Component id="ra_notificacoes" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="cb_tipoNotificacao" pref="271" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="lbl" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="lbl1" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="cb_cliente" max="32767" attributes="0"/>
                                   <Component id="tf_numero" max="32767" attributes="0"/>
+                                  <Component id="tf_agencia" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lbl1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tf_agencia" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="ra_notificacoes" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="cb_tipoNotificacao" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="ra_fluxo" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ra_baixa" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ra_oferta" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ra_investimento" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace pref="173" max="32767" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="ra_oferta" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ra_investimento" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace pref="176" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -265,15 +265,15 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tf_numero" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tf_numero" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tf_agencia" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbl1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tf_agencia" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="ra_notificacoes" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cb_tipoNotificacao" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -313,14 +313,10 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Cliente&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JSpinner" name="tf_numero">
-            </Component>
             <Component class="javax.swing.JLabel" name="lbl">
               <Properties>
                 <Property name="text" type="java.lang.String" value="N&#xfa;mero"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JSpinner" name="tf_agencia">
             </Component>
             <Component class="javax.swing.JLabel" name="lbl1">
               <Properties>
@@ -359,6 +355,9 @@
                   <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cb_tipoNotificacaoActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -372,6 +371,24 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="An&#xe1;lise de Investimento"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="tf_numero">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_numeroActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField()"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tf_numero.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;        public void keyTyped(java.awt.event.KeyEvent evt) {&#xa;         if((Character.isLetter(evt.getKeyChar()))){&#xa;                evt.consume();&#xa;            }&#xa;        }&#xa;    });"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="tf_agencia">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_agenciaActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField()"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tf_agencia.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;        public void keyTyped(java.awt.event.KeyEvent evt) {&#xa;         if((Character.isLetter(evt.getKeyChar()))){&#xa;                evt.consume();&#xa;            }&#xa;        }&#xa;    });"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -462,12 +479,20 @@
               </Properties>
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="cb_operacaoFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cb_operacaoActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="tf_quantidade">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_quantidadeActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField()"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tf_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;        public void keyTyped(java.awt.event.KeyEvent evt) {&#xa;         if((Character.isLetter(evt.getKeyChar()))){&#xa;                evt.consume();&#xa;            }&#xa;        }&#xa;    });"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
@@ -490,7 +515,11 @@
                   <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cb_destinatarioActionPerformed"/>
+              </Events>
               <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox&lt;&gt;()"/>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ContaCorrente&gt;"/>
               </AuxValues>
             </Component>
