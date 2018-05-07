@@ -156,6 +156,9 @@
               </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="tf_servidorJMS">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tf_servidorJMS.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;        public void keyTyped(java.awt.event.KeyEvent evt) {&#xa;         if((!Character.isDigit(evt.getKeyChar()))){&#xa;                evt.consume();&#xa;            }&#xa;        }&#xa;    });"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_servidorJMS">
               <Properties>
@@ -378,7 +381,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField()"/>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tf_numero.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;        public void keyTyped(java.awt.event.KeyEvent evt) {&#xa;         if((Character.isLetter(evt.getKeyChar()))){&#xa;                evt.consume();&#xa;            }&#xa;        }&#xa;    });"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tf_numero.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;        public void keyTyped(java.awt.event.KeyEvent evt) {&#xa;         if((!Character.isDigit(evt.getKeyChar()))){&#xa;                evt.consume();&#xa;            }&#xa;        }&#xa;    });"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="tf_agencia">
@@ -387,7 +390,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField()"/>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tf_agencia.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;        public void keyTyped(java.awt.event.KeyEvent evt) {&#xa;         if((Character.isLetter(evt.getKeyChar()))){&#xa;                evt.consume();&#xa;            }&#xa;        }&#xa;    });"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tf_agencia.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;        public void keyTyped(java.awt.event.KeyEvent evt) {&#xa;         if((!Character.isDigit(evt.getKeyChar()))){&#xa;                evt.consume();&#xa;            }&#xa;        }&#xa;    });"/>
               </AuxValues>
             </Component>
           </SubComponents>
@@ -491,7 +494,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField()"/>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tf_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;        public void keyTyped(java.awt.event.KeyEvent evt) {&#xa;         if((Character.isLetter(evt.getKeyChar()))){&#xa;                evt.consume();&#xa;            }&#xa;        }&#xa;    });"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tf_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {&#xa;        public void keyTyped(java.awt.event.KeyEvent evt) {&#xa;         if((!Character.isDigit(evt.getKeyChar()))){&#xa;                evt.consume();&#xa;            }&#xa;        }&#xa;    });"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">

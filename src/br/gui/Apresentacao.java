@@ -24,6 +24,7 @@ public class Apresentacao extends javax.swing.JFrame {
     private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     private MaskFormatter maskCPF;
     private MaskFormatter maskCNPJ;
+    private boolean svdjms = false;
     
     /**
      * Creates new form Apresentacao
@@ -112,6 +113,14 @@ public class Apresentacao extends javax.swing.JFrame {
         cb_codigo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 cb_codigoFocusLost(evt);
+            }
+        });
+
+        tf_servidorJMS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                if((!Character.isDigit(evt.getKeyChar()))){
+                    evt.consume();
+                }
             }
         });
 
@@ -263,7 +272,7 @@ public class Apresentacao extends javax.swing.JFrame {
 
         tf_numero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                if((Character.isLetter(evt.getKeyChar()))){
+                if((!Character.isDigit(evt.getKeyChar()))){
                     evt.consume();
                 }
             }
@@ -276,7 +285,7 @@ public class Apresentacao extends javax.swing.JFrame {
 
         tf_agencia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                if((Character.isLetter(evt.getKeyChar()))){
+                if((!Character.isDigit(evt.getKeyChar()))){
                     evt.consume();
                 }
             }
@@ -370,7 +379,7 @@ public class Apresentacao extends javax.swing.JFrame {
 
         tf_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                if((Character.isLetter(evt.getKeyChar()))){
+                if((!Character.isDigit(evt.getKeyChar()))){
                     evt.consume();
                 }
             }
@@ -631,9 +640,11 @@ public class Apresentacao extends javax.swing.JFrame {
 
     private void cb_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cb_clienteFocusLost
         Cliente aux = (Cliente) cb_cliente.getSelectedItem();
-        if(aux instanceof ClientePessoaJuridica) {
+        if(aux instanceof ClientePessoaJuridica && (!this.svdjms)) {
+            this.svdjms = true;
             cb_tipoNotificacao.addItem("Servidor JMS");
-        } else {
+        } else if(aux instanceof ClientePessoaFisica && this.svdjms){
+            this.svdjms = false;
             cb_tipoNotificacao.removeItem("Servidor JMS");
         }
     }//GEN-LAST:event_cb_clienteFocusLost
