@@ -80,7 +80,8 @@ public class ContaCorrente implements Observable {
     private void receberTransferencia(double valor, ContaCorrente origem){    
         Operacao oper = new OperacaoTransferencia(valor,this.getSaldo(),TipoOperacao.ENTRADA,new Date(),this,origem);
         operacoes.add(oper);
-        this.saldo += valor;        
+        this.saldo += valor;
+        this.executarServicos(oper);
     }
     
     public int getNumero() {
