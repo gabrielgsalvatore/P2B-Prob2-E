@@ -138,6 +138,7 @@ public class Apresentacao extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tf_telFixo.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         tf_telFixo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_telFixoActionPerformed(evt);
@@ -149,6 +150,7 @@ public class Apresentacao extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tf_telCelular.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         tf_telCelular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_telCelularActionPerformed(evt);
