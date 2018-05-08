@@ -505,6 +505,9 @@ public class Apresentacao extends javax.swing.JFrame {
         this.tf_nome.setText("");
         this.tf_servidorJMS.setText("");
         this.tf_codigo.setText("");
+        tf_servidorJMS.setVisible(false);
+        lbl_servidorJMS.setVisible(false);
+        this.cb_codigo.setSelectedIndex(0);
         
     }//GEN-LAST:event_btn_cadastrarClienteActionPerformed
 
@@ -690,7 +693,7 @@ public class Apresentacao extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_telFixoActionPerformed
 
-    /**
+    /**'
      * @param args the command line arguments
      */
     public static void main(String args[]) {
