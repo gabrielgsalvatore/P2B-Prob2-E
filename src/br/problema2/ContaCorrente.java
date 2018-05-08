@@ -35,7 +35,7 @@ public class ContaCorrente implements Observable {
     
     @Override
     public void removeServico(Servico servico) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.servicos.remove(servico);
     }
     
     @Override
