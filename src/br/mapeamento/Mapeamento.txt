@@ -3,7 +3,7 @@
 Subject	= ContaConrrente.java
 
 Observer = Servico.java
---> Prof. Marcel: se a classe Servico implements Observer, não precisaria definir um novo método (executar), pois já possui o método executar definido em Observer. A própria classe Servico não precisaria existir, pois os serviços (AnaliseDeInvestimento, AnaliseDeFluxoDeCaixa, etc) poderiam ser implementações de Observer diretamente.
+--> Prof. Marcel: se a classe Servico implements Observer, então não precisaria definir um novo método (executar), pois já possui o método executar definido em Observer. A própria classe Servico não precisaria existir, pois os serviços (AnaliseDeInvestimento, AnaliseDeFluxoDeCaixa, etc) poderiam ser implementações de Observer diretamente.
 
 ConcreteObserver = 
     AnaliseDeInvestimento.java
@@ -11,3 +11,9 @@ ConcreteObserver =
     BaixaDeInvestimento.java
     Notificacao.java
     OfertaDeInvestimento.java
+
+--> Prof. Marcel: Cada problema recebe uma nota de 0,0 a 3,0.
+A soma dos 3 problemas mais a avaliação sobre a colaboração no trabalho em equipe define a nota de cada aluno.
+Problema - Notas Equipe E
+1	    2,1
+2	    2,9
