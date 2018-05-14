@@ -1,6 +1,9 @@
+--> Prof. Marcel: Parabéns!
+
 Subject	= ContaConrrente.java
 
 Observer = Servico.java
+--> Prof. Marcel: se a classe Servico implements Observer, não precisaria definir um novo método (executar), pois já possui o método executar definido em Observer. A própria classe Servico não precisaria existir, pois os serviços (AnaliseDeInvestimento, AnaliseDeFluxoDeCaixa, etc) poderiam ser implementações de Observer diretamente.
 
 ConcreteObserver = 
     AnaliseDeInvestimento.java
